@@ -3,10 +3,27 @@ import { Card, CardContent, Typography, Grid } from '@material-ui/core';
 import styles from './Cards.module.css';
 import CountUp from 'react-countup';
 import cx from 'classnames';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    '& > * + *': {
+      marginLeft: theme.spacing(2),
+    },
+  },
+}));
 
 const Cards = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
+  const classes = useStyles();
   if (!confirmed) {
-    return 'Loading....!';
+    return (
+      <div className={classes.root}>
+        {' '}
+        <CircularProgress color='secondary' />{' '}
+      </div>
+    );
   }
   return (
     <div className={styles.container}>
